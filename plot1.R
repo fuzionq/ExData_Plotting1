@@ -15,12 +15,11 @@ dat_loc <- "household_power_consumption.txt"
 first_obs <- read.table(dat_loc, sep=";", header=TRUE, nrows=1)[c(1,2)]
 first_obs_char <- paste(as.character(first_obs[[1]]), as.character(first_obs[[2]]))
 first_obs_date <- strptime(first_obs_char, "%d/%m/%Y %H:%M:%S")
-#first_obs_date <- as.POSIXlt(first_obs_date)
 first_int_date <- as.POSIXlt("2007-02-01")
 nrowskip <- as.double(difftime(first_int_date, first_obs_date, units="min"))
 
 # Load only data that we will need.
-nrows <- 60*24*2
+nrows <- 60*24*2 # Number of minutes in 2 days
 dat <- read.table(dat_loc, sep=";", header=FALSE, skip=nrowskip + 1, nrows=nrows, na.strings = "?") # +1 for header
 header <- read.table(dat_loc, sep=";", header=FALSE, nrows=1, stringsAsFactors = FALSE)
 colnames(dat) <- unlist(header)
