@@ -24,16 +24,14 @@ dat <- read.table(dat_loc, sep=";", header=FALSE, skip=nrowskip + 1, nrows=nrows
 header <- read.table(dat_loc, sep=";", header=FALSE, nrows=1, stringsAsFactors = FALSE)
 colnames(dat) <- unlist(header)
 
+dat$DateTime <- paste(as.character(dat[[1]]), as.character(dat[[2]]))
+dat$DateTime <- strptime(dat$DateTime, "%d/%m/%Y %H:%M:%S")
+
 ### PLOTTING BELOW ###
 
 # Plot 2: GAP vs Time (line)
 
-dat$DateTime <- paste(as.character(dat[[1]]), as.character(dat[[2]]))
-#dat$DateTime <- as.Date(dat$DateTime, format="%d/%m/%Y %H:%M:%S")
-dat$DateTime <- strptime(dat$DateTime, "%d/%m/%Y %H:%M:%S")
-
 png(file = "./ExData_Plotting1/plot2.png")
 par(bg = NA)
 with(dat, plot(DateTime, Global_active_power, xlab = "", ylab = "Global Active Power (kilowatts)", type = "l"))
-#with(dat, lines(DateTime, Global_active_power))
 dev.off()

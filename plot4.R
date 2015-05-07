@@ -24,6 +24,9 @@ dat <- read.table(dat_loc, sep=";", header=FALSE, skip=nrowskip + 1, nrows=nrows
 header <- read.table(dat_loc, sep=";", header=FALSE, nrows=1, stringsAsFactors = FALSE)
 colnames(dat) <- unlist(header)
 
+dat$DateTime <- paste(as.character(dat[[1]]), as.character(dat[[2]]))
+dat$DateTime <- strptime(dat$DateTime, "%d/%m/%Y %H:%M:%S")
+
 ### PLOTTING BELOW ###
 
 # Plot 4: Multiple plots
